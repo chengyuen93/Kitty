@@ -97,6 +97,7 @@ const Details = ({ details }) => {
 
   return (
     <div className={styles['info-container']}>
+      {/* badges */}
       <div className={styles['badges-container']}>
         {Object.keys(badges).map(key => {
           const name = key.split('_').join(' ');

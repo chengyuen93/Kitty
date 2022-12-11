@@ -12,9 +12,11 @@ const ImageCarousel = ({ images = [], setPreviewImage, setOpen }) => {
 
   const handleImageOnLoad = useCallback(
     (e, index) => {
+      // set the height
       setHeights(h => {
         if (e.target.clientHeight) return [...h, e.target.clientHeight];
       });
+      // set image load status
       setImagesLoading(loading => {
         const newLoading = [...loading];
         newLoading[index] = false;
@@ -25,6 +27,8 @@ const ImageCarousel = ({ images = [], setPreviewImage, setOpen }) => {
   );
 
   useEffect(() => {
+    // update the height of the image container to set the max of all image heights
+    // so that the height does not change when sliding to another picture
     if (heights.length && carouselRef.current) {
       const maxHeight = Math.max(...heights);
       carouselRef.current.style.height = `calc(${maxHeight}px + 1rem)`;
@@ -32,6 +36,7 @@ const ImageCarousel = ({ images = [], setPreviewImage, setOpen }) => {
   }, [heights]);
 
   useEffect(() => {
+    // whenever the images array change, set all back to true (loading)
     setImagesLoading(Array(images.length).fill(true));
   }, [images]);
 
@@ -62,11 +67,12 @@ const ImageCarousel = ({ images = [], setPreviewImage, setOpen }) => {
               onLoad={e => handleImageOnLoad(e, ind)}
               className={styles.image}
               src={url}
-              //   size="medium"
             />
           </div>
         );
       })}
+
+      {/* left button to slide the carousel */}
       {currentIndex > 0 && (
         <Icon
           onClick={e => {
@@ -78,6 +84,7 @@ const ImageCarousel = ({ images = [], setPreviewImage, setOpen }) => {
           name="angle left"
         />
       )}
+      {/* right button to slide the carousel */}
       {currentIndex < images.length - 1 && (
         <Icon
           onClick={e => {
@@ -92,27 +99,5 @@ const ImageCarousel = ({ images = [], setPreviewImage, setOpen }) => {
     </div>
   );
 };
-{
-  /* <Divider /> */
-}
-{
-  /* <CustomDotGroup slides={3} /> */
-}
 
 export default ImageCarousel;
-
-/* 
-<Carousel
-                className={styles['cat-details']}
-                elements={data.info.map(({ url, id }) => {
-                  return {
-                    render: () => (
-                      
-                    )
-                  };
-                })}
-                animation="slide left"
-                showNextPrev={false}
-                showIndicators={true}
-              />
-*/

@@ -22,3 +22,4 @@
 2. run `npm install` to install the node_modules
 3. run `npm run build` to build the app
 4. run `npm run start-build` to start the app
+5. Open the url `http://127.0.0.1:8080/` on your browser
