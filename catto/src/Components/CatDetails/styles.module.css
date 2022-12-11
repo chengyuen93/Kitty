@@ -26,7 +26,7 @@
   top: 0;
   width: 100%;
   height: 100%;
-  opacity: 0.3;
+  opacity: 0.1;
   background-image: url('./images/emptyImage.png');
   background-size: contain;
   background-repeat: no-repeat;
@@ -35,6 +35,7 @@
 .image {
   position: relative;
   cursor: pointer;
+  max-height: 400px;
 }
 .info-container {
   display: flex;
@@ -82,4 +83,55 @@
 
 .life-info > *:first-child {
   flex: 1.5;
+}
+.image-carousel {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  width: 400px;
+}
+.carousel-image {
+  transition: transform 1s ease, opacity 1s ease;
+  transform: translateX(0);
+  opacity: 1;
+  position: relative;
+  margin-bottom: 0;
+}
+.carousel-image.prev {
+  transform: translateX(-500px);
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  margin: 0 0.5rem;
+}
+.carousel-image.next {
+  position: absolute;
+  transform: translateX(500px);
+  opacity: 0;
+  pointer-events: none;
+  margin: 0 0.5rem;
+}
+
+.carousel-indicator {
+  position: absolute;
+  background-color: rgb(81, 81, 81, 0.5);
+  cursor: pointer;
+}
+.carousel-indicator:hover {
+  background-color: rgb(81, 81, 81, 0.8);
+}
+.carousel-indicator.left {
+  left: -1rem;
+  top: 50%;
+}
+.carousel-indicator.right {
+  right: -1rem;
+  top: 50%;
 }

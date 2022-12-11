@@ -1,13 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image, Message } from 'semantic-ui-react';
 import CustomLoader from '../CustomLoader/CustomLoader';
 import TransitionableImagePortal from '../TransitionableImagePortal/TransitionableImagePortal';
 import Details from './Details';
+import ImageCarousel from './ImageCarousel';
 import styles from './styles.module.css';
 
 const CatDetails = ({ data, isLoading, isFetching, isError, error }) => {
   const [open, setOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState(null);
+  const [imageLoading, setImageLoading] = useState(true);
+
+  useEffect(() => {
+    if (isLoading || isFetching) setImageLoading(true);
+  }, [isLoading, isFetching, setImageLoading]);
 
   return (
     <>
@@ -22,25 +28,39 @@ const CatDetails = ({ data, isLoading, isFetching, isError, error }) => {
               !!data.breeds?.length ? '' : styles.center
             }`}
           >
-            <div className={styles['image-container']}>
-              <Image
+            {data.url ? (
+              <div
+                className={styles['image-container']}
                 onClick={() => {
                   setPreviewImage(data.url);
                   setOpen(true);
                 }}
-                className={styles.image}
-                src={data.url}
-                size={'medium'}
+              >
+                {imageLoading && <CustomLoader />}
+                <Image
+                  className={styles.image}
+                  src={data.url}
+                  size={'medium'}
+                  onLoad={() => setImageLoading(false)}
+                />
+              </div>
+            ) : data.info ? (
+              <ImageCarousel
+                images={data.info}
+                setPreviewImage={setPreviewImage}
+                setOpen={setOpen}
               />
-            </div>
+            ) : null}
 
             {data.breeds?.length ? (
               <Details details={data.breeds[0]} />
             ) : (
               <span>
                 <em>
-                  Sorry we don't know what is the breed of this cat. We will do
-                  better!
+                  {data.info
+                    ? `Sorry we can't find any information on this breed!`
+                    : `Sorry we don't know what is the breed of this cat. We will do
+                  better!`}
                 </em>
               </span>
             )}

@@ -1,13 +1,10 @@
 import { Router } from 'express';
-import { getCat } from '../services/cats.js';
+import { getBreeds, getCat, getCatsByBreed } from '../services/cats.js';
 
 const router = Router();
 
-router.get('/', (req, res, next) => {
-  res.send('Hi cats');
-});
-
 router.get('/cat', getCat);
-// router.get('/cat/:id', getCat);
+router.get('/cats/:id', getCatsByBreed);
+router.get('/breeds', getBreeds);
 
 export default router;

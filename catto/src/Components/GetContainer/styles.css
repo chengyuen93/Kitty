@@ -1,0 +1,4 @@
+.breedsSearch > .results {
+  max-height: 50vh;
+  overflow-y: auto;
+}
