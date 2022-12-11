@@ -1,0 +1,25 @@
+.header {
+  background-color: #2992cb;
+  padding: 1rem 2rem;
+  font-size: 2rem;
+  color: white;
+  text-shadow: 2px 2px 5px black;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  overflow: auto;
+}
+
+.display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem 2rem;
+}
